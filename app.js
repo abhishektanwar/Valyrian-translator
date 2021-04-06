@@ -15,7 +15,7 @@ function errorHandler(error) {
 
 btnTranslate.addEventListener("click",function(){
 	var inputText = inputArea.value;
-
+	console.log(inputText)
     fetch(getTranslationURL(inputText))
         .then(response => response.json())
         .then(json => {
@@ -24,3 +24,4 @@ btnTranslate.addEventListener("click",function(){
         })
         .catch(errorHandler)
 })
+
