@@ -2,20 +2,25 @@ var inputArea = document.querySelector("#input-area");
 var outputArea = document.querySelector("#output-area");
 var btnTranslate = document.querySelector("#btn-translate");
 
-var url = "https://api.funtranslations.com/translate/valyrian.json?text="
+var serverURL = "https://api.funtranslations.com/translate/valyrian.json"
 
-function generateURL(text){
-	return url + text;
+function getTranslationURL(input) {
+    return serverURL + "?" + "text=" + input
 }
 
-function errorHandler(error){
-	console.log("error occoured", error);
-	alert("please try again later");
+function errorHandler(error) {
+    console.log("error occured", error);
+    alert("something wrong with server! try again after some time")
 }
 
 btnTranslate.addEventListener("click",function(){
-	fetch(generateURL(inputArea.value))
-	.then(response => response.json())
-	.then(json => outputArea.innerText = json.contents.translated)
-	.catch(errorHandler);
+	var inputText = inputArea.value;
+
+    fetch(getTranslationURL(inputText))
+        .then(response => response.json())
+        .then(json => {
+            var translatedText = json.contents.translated;
+            outputArea.innerText = translatedText;
+        })
+        .catch(errorHandler)
 })
